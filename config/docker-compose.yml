@@ -5,6 +5,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile.config
+            image: config-server
         image: config-server:latest
         ports:
              - 8081:8081

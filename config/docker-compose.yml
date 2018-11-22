@@ -19,7 +19,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile.discovery
-        image: discovery:latest
+        image: sbandyo2/discovery:latest
         ports:
             - 8082:8082
         networks:
@@ -35,7 +35,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile.auth
-        image: auth-server:latest
+        image: sbandyo2/auth-server:latest
         ports:
             - 9101:9101
         networks:
@@ -52,7 +52,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile.gateway
-        image: gateway:latest
+        image: sbandyo2/gateway:latest
         ports:
             - 8080:8080
         networks:
@@ -69,7 +69,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile.csa
-        image: csa:latest
+        image: sbandyo2/csa:latest
         restart: always
         ports:
             - 8085:8085
@@ -88,7 +88,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile.backend
-        image: backend:latest
+        image: sbandyo2/backend:latest
         restart: always
         ports:
             - 8087:8087
@@ -107,7 +107,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile.ariba
-        image: ariba:latest
+        image: sbandyo2/ariba:latest
         restart: always
         ports:
             - 8086:8086

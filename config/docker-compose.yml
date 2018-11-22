@@ -5,7 +5,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile.config
-        image: config-server:latest
+        image: sbandyo2/config-server:latest
         ports:
              - 8081:8081
         networks:

@@ -5,7 +5,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile.config
-        image: sbandyo2/config-server:latest
+        image: aribaapi/config-server:latest
         ports:
              - 8081:8081
         networks:
@@ -19,7 +19,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile.discovery
-        image: sbandyo2/discovery:latest
+        image: aribaapi/discovery:latest
         ports:
             - 8082:8082
         networks:
@@ -35,7 +35,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile.auth
-        image: sbandyo2/auth-server:latest
+        image: aribaapi/auth-server:latest
         ports:
             - 9101:9101
         networks:
@@ -52,7 +52,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile.gateway
-        image: sbandyo2/gateway:latest
+        image: aribaapi/gateway:latest
         ports:
             - 8080:8080
         networks:
@@ -69,7 +69,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile.backend
-        image: sbandyo2/backend:latest
+        image: aribaapi/backend:latest
         restart: always
         ports:
             - 8087:8087
@@ -88,7 +88,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile.ariba
-        image: sbandyo2/ariba:latest
+        image: aribaapi/ariba:latest
         restart: always
         ports:
             - 8086:8086
@@ -107,7 +107,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile.csa
-        image: sbandyo2/csa:latest
+        image: aribaapi/csa:latest
         restart: always
         ports:
             - 8085:8085

@@ -1,7 +1,7 @@
 version: '2'
 services:
     config-server:
-        container_name: "config-server-primary-$RELEASE"
+        container_name: config-server-primary
         build:
             context: .
             dockerfile: Dockerfile.config
@@ -15,7 +15,7 @@ services:
         logging:
             driver: json-file
     discovery:
-        container_name: "discovery-primary-$RELEASE"
+        container_name: discovery-primary
         build:
             context: .
             dockerfile: Dockerfile.discovery
@@ -31,7 +31,7 @@ services:
         logging:
             driver: json-file
     auth-server:
-        container_name: "auth-server-primary-$RELEASE"
+        container_name: auth-server-primary
         build:
             context: .
             dockerfile: Dockerfile.auth
@@ -48,7 +48,7 @@ services:
         logging:
             driver: json-file
     gateway:
-        container_name: "gateway-primary-$RELEASE"
+        container_name: gateway-primary
         build:
             context: .
             dockerfile: Dockerfile.gateway
@@ -65,7 +65,7 @@ services:
         logging:
             driver: json-file
     csa:
-        container_name: "csa-primary-$RELEASE"
+        container_name: csa-primary
         build:
             context: .
             dockerfile: Dockerfile.csa
@@ -84,7 +84,7 @@ services:
         logging:
             driver: json-file
     backend-server:
-        container_name: "backend-primary-$RELEASE"
+        container_name: backend-primary
         build:
             context: .
             dockerfile: Dockerfile.backend
@@ -103,7 +103,7 @@ services:
         logging:
             driver: json-file
     ariba-server:
-        container_name: "ariba-primary-$RELEASE"
+        container_name: ariba-primary
         build:
             context: .
             dockerfile: Dockerfile.ariba

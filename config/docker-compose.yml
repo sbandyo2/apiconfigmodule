@@ -121,24 +121,26 @@ services:
             - gateway
         logging:
             driver: json-file
-     yp:
-       container_name: yp-primary
-       build:
+    yp:
+        container_name: yp-primary
+        build:
             context: .
             dockerfile: Dockerfile.yp
-       image: aribaapi/yp:latest
-       restart: always
-       ports: 8084:8084
-       networks:
-           - spring-cloud-network
-       links:
-           - discovery:discovery
-           - config-server:config-server
-           - gateway
-       depends_on:
-           - gateway
-       logging:
-           driver: json-file
+        image: aribaapi/yp:latest
+        restart: always
+        ports:
+            - 8084:8084
+        networks:
+            - spring-cloud-network
+        links:
+            - discovery:discovery
+            - config-server:config-server
+            - gateway
+        depends_on:
+            - gateway
+        logging:
+            driver: json-file
+     
 networks:
     spring-cloud-network:
         driver: bridge

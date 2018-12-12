@@ -36,6 +36,7 @@ services:
             context: .
             dockerfile: Dockerfile.auth
         image: aribaapi/auth-server:latest
+        restart: always
         ports:
             - 9101:9101
         networks:
@@ -168,6 +169,25 @@ services:
         restart: always
         ports:
             - 8084:8084
+        networks:
+            - spring-cloud-network
+        links:
+            - discovery:discovery
+            - config-server:config-server
+            - gateway
+        depends_on:
+            - gateway
+        logging:
+            driver: json-file
+    ypw2:
+        container_name: yp-secondary
+        build:
+            context: .
+            dockerfile: Dockerfile.ypw2
+        image: aribaapi/ypw2:latest
+        restart: always
+        ports:
+            - 7084:7084
         networks:
             - spring-cloud-network
         links:

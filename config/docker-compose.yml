@@ -121,6 +121,25 @@ services:
             - gateway
         logging:
             driver: json-file
+    csaw2:
+        container_name: csa-secondary
+        build:
+            context: .
+            dockerfile: Dockerfile.csaw2
+        image: aribaapi/csaw2:latest
+        restart: always
+        ports:
+            - 7085:7085
+        networks:
+            - spring-cloud-network
+        links:
+            - discovery:discovery
+            - config-server:config-server
+            - gateway
+        depends_on:
+            - gateway
+        logging:
+            driver: json-file
     ordernow:
         container_name: on-primary
         build:

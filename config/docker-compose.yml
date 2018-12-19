@@ -6,6 +6,7 @@ services:
             context: .
             dockerfile: Dockerfile.config
         image: aribaapi/config-server:latest
+        restart: always
         ports:
              - 8081:8081
         networks:

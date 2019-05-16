@@ -1,0 +1,229 @@
+version: '2'
+services:
+    config-server:
+        container_name: config-server-primary
+        build:
+            context: .
+            dockerfile: Dockerfile.config
+        image: aribaapi/config-server:latest
+        restart: always
+        ports:
+             - 8081:8081
+        networks:
+            - spring-cloud-network
+        volumes:
+            - spring-cloud-config-repo:/var/lib/spring-cloud/config-repo
+        logging:
+            driver: json-file
+    discovery:
+        container_name: discovery-primary
+        build:
+            context: .
+            dockerfile: Dockerfile.discovery
+        image: aribaapi/discovery:latest
+        restart: always
+        ports:
+            - 8082:8082
+        networks:
+            - spring-cloud-network
+        links:
+            - config-server:config-server
+        depends_on:
+            - config-server
+        logging:
+            driver: json-file
+    auth-server:
+        container_name: auth-server-primary
+        build:
+            context: .
+            dockerfile: Dockerfile.auth
+        image: aribaapi/auth-server:latest
+        restart: always
+        ports:
+            - 9101:9101
+        networks:
+            - spring-cloud-network
+        links:
+            - discovery:discovery
+            - config-server:config-server
+        depends_on:
+            - discovery
+        logging:
+            driver: json-file
+    gateway:
+        container_name: gateway-primary
+        build:
+            context: .
+            dockerfile: Dockerfile.gateway
+        image: aribaapi/gateway:latest
+        restart: always
+        ports:
+            - 8080:8080
+        networks:
+            - spring-cloud-network
+        links:
+            - discovery:discovery
+            - config-server:config-server
+        depends_on:
+            - auth-server
+        logging:
+            driver: json-file
+    backend-server:
+        container_name: backend-primary
+        build:
+            context: .
+            dockerfile: Dockerfile.backend
+        image: aribaapi/backend:latest
+        restart: always
+        ports:
+            - 8087:8087
+        networks:
+            - spring-cloud-network
+        links:
+            - discovery:discovery
+            - config-server:config-server
+            - gateway
+        depends_on:
+            - gateway
+        logging:
+            driver: json-file
+    ariba-server:
+        container_name: ariba-primary
+        build:
+            context: .
+            dockerfile: Dockerfile.ariba
+        image: aribaapi/ariba:latest
+        restart: always
+        ports:
+            - 8086:8086
+        networks:
+            - spring-cloud-network
+        links:
+            - discovery:discovery
+            - config-server:config-server
+            - gateway
+        depends_on:
+            - gateway
+        logging:
+            driver: json-file
+    csa:
+        container_name: csa-primary
+        build:
+            context: .
+            dockerfile: Dockerfile.csa
+        image: aribaapi/csa:latest
+        restart: always
+        ports:
+            - 8085:8085
+        networks:
+            - spring-cloud-network
+        links:
+            - discovery:discovery
+            - config-server:config-server
+            - gateway
+        depends_on:
+            - gateway
+        logging:
+            driver: json-file
+    csaw2:
+        container_name: csa-secondary
+        build:
+            context: .
+            dockerfile: Dockerfile.csaw2
+        image: aribaapi/csaw2:latest
+        restart: always
+        ports:
+            - 7085:7085
+        networks:
+            - spring-cloud-network
+        links:
+            - discovery:discovery
+            - config-server:config-server
+            - gateway
+        depends_on:
+            - gateway
+        logging:
+            driver: json-file
+    ordernow:
+        container_name: on-primary
+        build:
+            context: .
+            dockerfile: Dockerfile.on
+        image: aribaapi/on:latest
+        restart: always
+        ports:
+            - 8083:8083
+        networks:
+            - spring-cloud-network
+        links:
+            - discovery:discovery
+            - config-server:config-server
+            - gateway
+        depends_on:
+            - gateway
+        logging:
+            driver: json-file
+    ordernoww2:
+        container_name: on-secondary
+        build:
+            context: .
+            dockerfile: Dockerfile.on2
+        image: aribaapi/on2:latest
+        restart: always
+        ports:
+            - 7083:7083
+        networks:
+            - spring-cloud-network
+        links:
+            - discovery:discovery
+            - config-server:config-server
+            - gateway
+        depends_on:
+            - gateway
+        logging:
+            driver: json-file
+    yp:
+        container_name: yp-primary
+        build:
+            context: .
+            dockerfile: Dockerfile.yp
+        image: aribaapi/yp:latest
+        restart: always
+        ports:
+            - 8084:8084
+        networks:
+            - spring-cloud-network
+        links:
+            - discovery:discovery
+            - config-server:config-server
+            - gateway
+        depends_on:
+            - gateway
+        logging:
+            driver: json-file
+    ypw2:
+        container_name: yp-secondary
+        build:
+            context: .
+            dockerfile: Dockerfile.ypw2
+        image: aribaapi/ypw2:latest
+        restart: always
+        ports:
+            - 7084:7084
+        networks:
+            - spring-cloud-network
+        links:
+            - discovery:discovery
+            - config-server:config-server
+            - gateway
+        depends_on:
+            - gateway
+        logging:
+            driver: json-file
+ 
+networks:
+    spring-cloud-network:
+        driver: bridge
+volumes:
+    spring-cloud-config-repo:
+        external: true
